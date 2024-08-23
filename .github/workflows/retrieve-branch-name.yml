@@ -15,17 +15,24 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Display Branch Name
-        run: echo "Current Branch:${{ github.ref }}"
+      - name: Fetch All Branches
+        run: git fetch --all
 
       - name: List All Branches
-        run: git branch -r
-
-      - name: Write Branch Name and List All Branches to README.md
+        id: list-branches
         run: |
-          echo "Current Branch: ${{ github.ref }}" > README.md
-          echo "Available Branches:" >> README.md
-          git branch -r >> README.md
+          echo "Available Branches:" > branches.txt
+          for branch in $(git branch -r | grep -v '\->'); do
+            echo "Branch: ${branch}" >> branches.txt
+          done
+
+      - name: Display Branches
+        run: cat branches.txt
+
+      - name: Write Branches to README.md
+        run: |
+          echo "Current Branch:${{ github.ref }}" > README.md
+          cat branches.txt >> README.md
 
       - name: Commit changes
         run: |
