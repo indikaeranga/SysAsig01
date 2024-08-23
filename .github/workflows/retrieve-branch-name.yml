@@ -1,4 +1,4 @@
-name: Retrieve Branch Name
+name: Retrieve Branch Name and List All Branches
 
 on:
   push:
@@ -18,15 +18,21 @@ jobs:
       - name: Display Branch Name
         run: echo "Current Branch:${{ github.ref }}"
 
-      - name: Write Branch Name to README.md        
-        run: echo "Current Branch:${{ github.ref }}" > README.md
+      - name: List All Branches
+        run: git branch -r
+
+      - name: Write Branch Name and List All Branches to README.md
+        run: |
+          echo "Current Branch: ${{ github.ref }}" > README.md
+          echo "Available Branches:" >> README.md
+          git branch -r >> README.md
 
       - name: Commit changes
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "Update README.md with current branch name"
+          git commit -m "Update README.md with current branch name and list of branches"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
