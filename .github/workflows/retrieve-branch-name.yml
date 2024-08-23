@@ -5,6 +5,9 @@ on:
     branches:
       - '*'
 
+permissions:
+  contents: write  # Grant write permission to GITHUB_TOKEN
+
 jobs:
   retrieve-branch:
     runs-on: ubuntu-latest
@@ -13,10 +16,10 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Display Branch Name
-        run: echo "Current Branch:${{ github.ref }}"
+        run: echo "Current Branch: ${{ github.ref }}"
 
       - name: Write Branch Name to README.md
-        run: echo "Current Branch:${{ github.ref }}" > README.md
+        run: echo "Current Branch: ${{ github.ref }}" > README.md
 
       - name: Commit changes
         run: |
@@ -25,3 +28,5 @@ jobs:
           git add README.md
           git commit -m "Update README.md with current branch name"
           git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
