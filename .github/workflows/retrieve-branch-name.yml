@@ -19,7 +19,7 @@ jobs:
         echo "Current Branch: $GITHUB_REF" > README.md
 
       - name: Write Branch Name to README.md
-        run: echo "Current Branch: ${{ github.ref }}" > README.md
+        echo "Current Branch: $GITHUB_REF" > README.md
 
       - name: Commit changes
         run: |
