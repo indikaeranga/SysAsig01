@@ -18,18 +18,19 @@ jobs:
       - name: Fetch All Branches
         run: git fetch --all
 
-      - name: List All Branches
+      - name: List All Branches and Last Committer
         id: list-branches
         run: |
-          echo "Available Branches:" > branches.txt
+          echo "Available Branches and Last Committer:" > branches.txt
           for branch in $(git branch -r | grep -v '\->'); do
-            echo "Branch: ${branch}" >> branches.txt
+            last_committer=$(git log -1 --pretty=format:'%an' "$branch")
+            echo "Branch: ${branch}, Last Committer: ${last_committer}" >> branches.txt
           done
 
-      - name: Display Branches
+      - name: Display Branches and Last Committer
         run: cat branches.txt
 
-      - name: Write Branches to README.md
+      - name: Write Branches and Last Committer to README.md
         run: |
           echo "Current Branch:${{ github.ref }}" > README.md
           cat branches.txt >> README.md
@@ -39,7 +40,7 @@ jobs:
           git config --local user.name "github-actions[bot]"
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "Update README.md with current branch name and list of branches"
+          git commit -m "Update README.md with current branch name, list of branches, and last committer"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
