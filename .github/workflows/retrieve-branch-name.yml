@@ -21,10 +21,11 @@ jobs:
       - name: List All Branches and Last Committer
         id: list-branches
         run: |
-          echo "Available Branches and Last Committer:" > branches.txt
+          echo "| Available Branch | Last Committer |" > branches.txt
+          echo "|------------------|----------------|" >> branches.txt
           for branch in $(git branch -r | grep -v '\->'); do
             last_committer=$(git log -1 --pretty=format:'%an' "$branch")
-            echo "Branch: ${branch}, Last Committer: ${last_committer}" >> branches.txt
+            echo "| ${branch} | ${last_committer} |" >> branches.txt
           done
 
       - name: Display Branches and Last Committer
@@ -32,7 +33,8 @@ jobs:
 
       - name: Write Branches and Last Committer to README.md
         run: |
-          echo "Current Branch:${{ github.ref }}" > README.md
+          echo "Current Branch: ${{ github.ref }}" > README.md
+          echo "" >> README.md
           cat branches.txt >> README.md
 
       - name: Commit changes
