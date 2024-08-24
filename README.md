@@ -1,4 +1,6 @@
-Current Branch:refs/heads/main
-Available Branches and Last Committer:
-Branch: origin/Dev, Last Committer: Indika Eranga
-Branch: origin/main, Last Committer: Indika Eranga
+Current Branch: refs/heads/main
+
+| Available Branch | Last Committer |
+|------------------|----------------|
+| origin/Dev | Indika Eranga |
+| origin/main | Indika Eranga |
