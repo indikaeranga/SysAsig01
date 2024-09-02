@@ -6,4 +6,4 @@ Current Branch: refs/heads/okra02
 | origin/Infra | Indika Eranga |
 | origin/main | github-actions[bot] |
 | origin/okra | Indika Eranga |
-| origin/okra02 | github-actions[bot] |
+| origin/okra02 | Indika Eranga |
